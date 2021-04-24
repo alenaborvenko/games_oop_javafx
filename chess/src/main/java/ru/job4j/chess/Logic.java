@@ -21,11 +21,11 @@ public final class Logic {
     }
 
     private boolean free(Cell[] steps) throws OccupiedCellException {
-        for (Cell step : steps) {
-            try {
-                findBy(step);
-                throw new OccupiedCellException();
-            } catch (FigureNotFoundException ex) {
+        for (Figure figure : figures) {
+            for (Cell cell : steps) {
+                if (figure != null && figure.position().equals(cell)) {
+                    throw new OccupiedCellException("Cell " + cell + " is not free");
+                }
             }
         }
         return true;
@@ -43,6 +43,6 @@ public final class Logic {
                 return index;
             }
         }
-        throw new FigureNotFoundException();
+        throw new FigureNotFoundException("Figures in cell " + cell + " is not found");
     }
 }

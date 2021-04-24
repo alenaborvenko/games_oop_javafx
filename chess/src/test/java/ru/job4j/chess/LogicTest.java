@@ -1,11 +1,9 @@
 package ru.job4j.chess;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.black.BishopBlack;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class LogicTest {
 
@@ -32,5 +30,20 @@ public class LogicTest {
         logic.add(new BishopBlack(Cell.C1));
         logic.add(new BishopBlack(Cell.E3));
         logic.move(Cell.C1, Cell.H6);
+    }
+
+    @Test(expected = FigureNotFoundException.class)
+    public void whenMoveWithoutFiguareThenFiguareNotFoundException()
+            throws FigureNotFoundException, OccupiedCellException, ImpossibleMoveException {
+        Logic logic = new Logic();
+        logic.move(Cell.C1, Cell.H6);
+    }
+
+    @Test(expected = FigureNotFoundException.class)
+    public void whenMoveFromB1ToH6ThenFigureNotFoundException()
+            throws FigureNotFoundException, OccupiedCellException, ImpossibleMoveException {
+        Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
+        logic.move(Cell.B1, Cell.H6);
     }
 }
